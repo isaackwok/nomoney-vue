@@ -9,10 +9,11 @@
       請記得更新你的資料，才能夠配對得更準確，更容易應徵成功喔！
     </div>
     <Nuxt />
+    <Footer />
   </div>
   <div
     v-else
-    class="flex flex-col h-screen w-screen justify-center items-center p-10"
+    class="flex flex-col w-screen justify-center items-center p-10"
   >
     <img src="~/assets/line_account_qrcode.png" />
     <p class="text-gray-600 mt-3">
