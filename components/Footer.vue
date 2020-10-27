@@ -28,7 +28,7 @@ export default {
       members: [
         { alias: "Isaac", email: "kch062522@gmail.com" },
         { alias: "cykuo", email: "tskuo90@gmail.com" },
-        { alias: "yizzy", email: "--" },
+        { alias: "yizzy", email: "chsh110768@gmail.com" },
       ],
       github: {
         frontend: "https://github.com/isaac0625/nomoney-vue",
