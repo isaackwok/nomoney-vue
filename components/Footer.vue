@@ -32,7 +32,7 @@ export default {
       ],
       github: {
         frontend: "https://github.com/isaac0625/nomoney-vue",
-        backend: "https://github.com/wohchowshy/ssmyc",
+        backend: "https://github.com/wohchowshy/nomoney-django",
       },
     };
   },
