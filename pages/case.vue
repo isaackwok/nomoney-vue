@@ -45,7 +45,7 @@
                     ? "先生"
                     : caseData.employer.gender === "F"
                     ? "小姐"
-                    : "其他"
+                    : "先生/小姐"
                 }}
               </td>
             </tr>
