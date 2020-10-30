@@ -9,7 +9,7 @@
 
     <SectionDivider sectionName="工作內容" />
     <div
-      class="flex flex-col rounded shadow bg-white px-3 border-l-4"
+      class="flex flex-col rounded-r shadow bg-white px-3 border-l-4"
       v-bind:class="{
         'border-orange-400': caseData.status === 'O', // open
         'border-green-400': caseData.status === 'C', // close
@@ -20,7 +20,9 @@
       <div class="relative justify-start py-2">
         <div class="flex flex-1 mr-1 mt-2 justify-between">
           <p class="text-green-700 text-lg font-bold">{{ caseData.title }}</p>
-          <p class="text-xs text-orange-400 font-bold whitespace-no-wrap">$ {{ caseData.pay }}</p>
+          <p class="text-xs text-orange-400 font-bold whitespace-no-wrap">
+            $ {{ caseData.pay }}
+          </p>
         </div>
         <p
           v-html="caseData.text.replaceAll('\n', '<br />')"
@@ -219,6 +221,28 @@
             }"
             >{{ applicant.accepted === "A" ? " 反悔" : " 接受" }}</i
           >
+        </a>
+      </div>
+    </div>
+    <!-- Recommended job -->
+    <div v-if="caseData.recommendations.length !== 0">
+      <SectionDivider sectionName="相關外快" />
+      <div
+        class="flex flex-col justify-start content-start text-gray-500 text-sm mx-1"
+      >
+        <a
+          v-for="(recommend, index) in caseData.recommendations"
+          v-bind:href="'/case?caseId=' + recommend.caseId"
+          v-bind:key="index"
+          class="block flex flex-col m-1 px-2 border-l-2 border-gray-500 cursor-pointer"
+        >
+          <p class="relative truncate text-bold text-gray-600">
+            {{ recommend.title
+            }}<span class="absolute right-0 ml-2 text-xs place-self-center"
+              >$ {{ recommend.pay }}</span
+            >
+          </p>
+          <p class="text-xs">{{ recommend.location }}</p>
         </a>
       </div>
     </div>
