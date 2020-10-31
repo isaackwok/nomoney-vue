@@ -24,7 +24,7 @@ export default {
     },
     userProfile() {
       return this.$store.state.userProfile;
-    }
+    },
   },
 };
 </script>

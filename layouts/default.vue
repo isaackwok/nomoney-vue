@@ -11,10 +11,7 @@
     <Nuxt />
     <Footer />
   </div>
-  <div
-    v-else
-    class="flex flex-col w-screen justify-center items-center p-10"
-  >
+  <div v-else class="flex flex-col w-screen justify-center items-center p-10">
     <img src="~/assets/line_account_qrcode.png" />
     <p class="text-gray-600 mt-3">
       請加入「<span class="text-green-500">{{ process.env.prjname }}</span
@@ -76,6 +73,9 @@ export default {
               }).then((res) => res.json())
             );
           }
+        } else {
+          if (!this.$store.state.userProfile && !liff.isLoggedIn())
+            liff.login();
         }
       })
       .catch((err) => {
