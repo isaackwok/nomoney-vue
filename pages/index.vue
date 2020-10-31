@@ -117,11 +117,12 @@
         <div class="my-1 flex">
           <a
             class="text-xs px-1 mr-1 border rounded-full border-blue-700 text-blue-700 cursor-pointer"
-            v-for="(tag, index) in result.hashtag"
+            v-for="(tag, index) in result.hashtag.slice(0, 3)"
             v-bind:key="index"
             v-on:click="onHashTagClick($event, tag)"
             >#{{ tag }}</a
           >
+          <span v-if="result.hashtag.length > 3" class="text-xs px-1 text-blue-700">...</span>
         </div>
       </a>
     </div>
