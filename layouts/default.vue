@@ -1,6 +1,5 @@
 <template>
-  <!-- <div v-if="web"> -->
-  <div v-if="true">
+  <div class="flex flex-col">
     <NavBar />
     <div
       v-if="userProfile && (!userProfile.phone || !userProfile.lineId)"
@@ -8,16 +7,10 @@
     >
       請記得更新你的資料，才能夠配對得更準確，更容易應徵成功喔！
     </div>
-    <Nuxt />
+    <div class="md:self-center md:w-3/5 lg:w-2/5">
+      <Nuxt />
+    </div>
     <Footer />
-  </div>
-  <div v-else class="flex flex-col w-screen justify-center items-center p-10">
-    <img src="~/assets/line_account_qrcode.png" />
-    <p class="text-gray-600 mt-3">
-      請加入「<span class="text-green-500">{{ process.env.prjname }}</span
-      >」LINE好友
-    </p>
-    <p class="text-green-500">LINE ID: @832gobav</p>
   </div>
 </template>
 

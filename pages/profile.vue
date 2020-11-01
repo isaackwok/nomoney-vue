@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen px-5">
+  <div class="px-5">
     <!-- User Profile Section -->
     <SectionDivider sectionName="個人檔案" />
 
