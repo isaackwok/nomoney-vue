@@ -181,7 +181,7 @@
               <tr>
                 <td class="pr-2">評分:</td>
                 <td class="pr-2">
-                  {{ applicant.rating ? applicant.rating + " / 5" : "--" }}
+                  {{ applicant.employeeRating ? applicant.employeeRating + " / 5" : "--" }}
                 </td>
               </tr>
               <tr v-if="caseData.isOwner && applicant.accepted === 'A'">
