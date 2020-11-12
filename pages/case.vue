@@ -6,108 +6,63 @@
       ><i class="text-white fab fa-line mr-1 text-base cursor-pointer"></i
       >分享</a
     >
-
     <SectionDivider sectionName="工作內容" />
-    <div
-      class="flex flex-col rounded-r shadow bg-white px-3 border-l-4"
-      v-bind:class="{
-        'border-orange-400': caseData.status === 'O', // open
-        'border-green-400': caseData.status === 'C', // close
-        'border-gray-400': caseData.status === 'D', // delete
+    <InfoCard
+      v-bind:cardData="{
+        title: caseData.title,
+        text: caseData.text,
+        details: {
+          地區: { text: caseData.location },
+          發案人: {
+            text: `${caseData.employer.displayName} ${
+              caseData.employer.gender === 'M'
+                ? '先生'
+                : caseData.employer.gender === 'F'
+                ? '小姐'
+                : '先生/小姐'
+            }`,
+          },
+          'LINE ID': caseData.employer.lineId !== undefined
+            ? {
+                text: caseData.employer.lineId === ''? '--': caseData.employer.lineId,
+                href: caseData.employer.lineId === ''? undefined: `https://line.me/R/ti/p/~${caseData.employer.lineId}`,
+              }
+            : undefined,
+          電話: caseData.employer.phone !== undefined
+            ? {
+                text: caseData.employer.phone === ''? '--': caseData.employer.phone,
+                href: caseData.employer.phone === ''? undefined: `tel:${caseData.employer.phone}`,
+              }
+            : undefined,
+          發案人評價: {
+            text: caseData.employer.rating
+              ? caseData.employer.rating + ' / 5'
+              : '--',
+          },
+          發案日期: {
+            text: caseData.publishTime.replace('T', ' ').split('.')[0],
+          },
+          最後修改: {
+            text: caseData.modifiedTime.replace('T', ' ').split('.')[0],
+          },
+        },
+        textStyle: {
+          truncate: false,
+          textsm: false,
+        },
+        titleStyle: {
+          bold: true,
+          large: true,
+          color: 'green',
+        },
+        hashtagTruncate: false,
+        pay: caseData.pay,
+        hashtag: caseData.hashtag,
+        status: caseData.status,
       }"
-    >
-      <!-- case basic info -->
-      <div class="relative justify-start py-2">
-        <div class="flex flex-1 mr-1 mt-2 justify-between">
-          <p class="text-green-700 text-lg font-bold">{{ caseData.title }}</p>
-          <p class="text-xs text-orange-400 font-bold whitespace-no-wrap">
-            $ {{ caseData.pay }}
-          </p>
-        </div>
-        <p
-          v-html="caseData.text.replaceAll('\n', '<br />')"
-          class="text-gray-700 leading-tight mt-1"
-        ></p>
-      </div>
+    />
 
-      <!-- case detailed info -->
-      <div class="text-gray-600 flex text-sm py-2">
-        <table class="table-auto">
-          <tbody>
-            <tr>
-              <td class="pr-2">地區:</td>
-              <td class="pr-2">{{ caseData.location }}</td>
-            </tr>
-            <tr>
-              <td class="pr-2">發案人:</td>
-              <td class="pr-2">
-                {{ caseData.employer.displayName }}
-                {{
-                  caseData.employer.gender === "M"
-                    ? "先生"
-                    : caseData.employer.gender === "F"
-                    ? "小姐"
-                    : "先生/小姐"
-                }}
-              </td>
-            </tr>
-            <tr v-if="isAcceptedOrOwner">
-              <td class="pr-2">LINE ID:</td>
-              <td class="pr-2">
-                <a
-                  v-bind:href="
-                    'https://line.me/R/ti/p/~' + caseData.employer.lineId
-                  "
-                  >{{ caseData.employer.lineId }}
-                  <i class="fas fa-user-plus text-green-400"></i
-                ></a>
-              </td>
-            </tr>
-            <tr v-if="isAcceptedOrOwner">
-              <td class="pr-2">電話:</td>
-              <td class="pr-2">
-                <a
-                  class="text-blue-700 underline"
-                  v-bind:href="'tel:' + caseData.employer.phone"
-                  >{{ caseData.employer.phone }}</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td class="pr-2">發案人評價:</td>
-              <td class="pr-2">
-                {{
-                  caseData.employer.rating
-                    ? caseData.employer.rating + " / 5"
-                    : "--"
-                }}
-              </td>
-            </tr>
-            <tr>
-              <td class="pr-2">發案日期:</td>
-              <td class="pr-2">
-                {{ caseData.publishTime.replace("T", " ").split(".")[0] }}
-              </td>
-            </tr>
-            <tr>
-              <td class="pr-2">最後修改:</td>
-              <td class="pr-2">
-                {{ caseData.modifiedTime.replace("T", " ").split(".")[0] }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="my-1 flex">
-        <a
-          class="text-xs px-1 mr-1 border rounded-full border-blue-700 text-blue-700 cursor-pointer"
-          v-for="(tag, index) in caseData.hashtag"
-          v-on:click="onHashTagClick($event, tag)"
-          v-bind:key="index"
-          >#{{ tag }}</a
-        >
-      </div>
-    </div>
+    <!-- Case Actions -->
     <div
       v-if="caseData.status === 'O' && caseData.isOwner"
       class="flex self-end mt-3 mx-2"
@@ -155,74 +110,47 @@
     >
       <SectionDivider sectionName="應徵者" />
       <!-- Applicant info -->
-      <div
+      <InfoCard
         v-for="(applicant, index) in applicants"
         v-bind:key="index"
-        class="relative flex flex-col bg-white py-2 px-3 m-1 shadow rounded"
-      >
-        <a>
-          <i
-            v-bind:class="{
-              'fa-check text-green-500': applicant.accepted === 'A',
-              'fa-user-clock text-orange-500': applicant.accepted === 'T',
-            }"
-            class="fas absolute text-xs top-0 right-0 py-2 px-1"
-            >{{ applicant.accepted === "A" ? "已接受" : "待邀約" }}</i
-          >
-        </a>
-        <p class="text-gray-800 italic">{{ applicant.message }}</p>
-        <div>
-          <table class="table-auto text-sm text-gray-600">
-            <tbody>
-              <tr>
-                <td class="pr-2">姓名:</td>
-                <td class="pr-2">{{ applicant.displayName }}</td>
-              </tr>
-              <tr>
-                <td class="pr-2">評分:</td>
-                <td class="pr-2">
-                  {{ applicant.employeeRating ? applicant.employeeRating + " / 5" : "--" }}
-                </td>
-              </tr>
-              <tr v-if="caseData.isOwner && applicant.accepted === 'A'">
-                <td class="pr-2">LINE ID:</td>
-                <td class="pr-2">
-                  <a
-                    v-bind:href="'https://line.me/R/ti/p/~' + applicant.lineId"
-                  >
-                    {{ applicant.lineId }}
-                    <i class="fas fa-user-plus text-green-400"></i
-                  ></a>
-                </td>
-              </tr>
-              <tr v-if="caseData.isOwner && applicant.accepted === 'A'">
-                <td class="pr-2">電話:</td>
-                <td class="pr-2">
-                  <a
-                    class="text-blue-700 underline"
-                    v-bind:href="'tel:' + applicant.phone"
-                    >{{ applicant.phone }}</a
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <a
-          v-if="caseData.status === 'O'"
-          class="absolute text-sm bottom-0 right-0 m-2"
-        >
-          <i
-            class="fas rounded shadow py-1 px-2 text-white"
-            v-on:click="changeApplicationAccepted(applicant)"
-            v-bind:class="{
-              'fa-backspace bg-red-600': applicant.accepted === 'A',
-              'fa-user-check bg-green-600': applicant.accepted === 'T',
-            }"
-            >{{ applicant.accepted === "A" ? " 反悔" : " 接受" }}</i
-          >
-        </a>
-      </div>
+        v-bind:cardData="{
+          title: applicant.displayName,
+          text: applicant.message,
+          accepted: applicant.accepted,
+          details: {
+            評價: {
+              text: applicant.employeeRating
+                ? applicant.employeeRating + ' / 5'
+                : '--',
+            },
+            'LINE ID':
+              caseData.isOwner && applicant.accepted === 'A'
+                ? {
+                    text: applicant.lineId === ''? '--': applicant.lineId,
+                    href: applicant.lineId === ''?undefined: `https://line.me/R/ti/p/~${applicant.lineId}`,
+                  }
+                : undefined,
+            電話:
+              caseData.isOwner && applicant.accepted === 'A'
+                ? {
+                    text: applicant.phone === ''? '--': applicant.phone,
+                    href: applicant.phone === ''? undefined: `tel:${applicant.phone}`,
+                  }
+                : undefined,
+          },
+          acceptButton: caseData.status === 'O',
+          applicant: applicant,
+          textStyle: {
+            truncate: false,
+            textsm: true,
+          },
+          titleStyle: {
+            bold: false,
+            large: false,
+            color: 'gray',
+          },
+        }"
+      />
     </div>
     <!-- Recommended job -->
     <div v-if="caseData.recommendations.length !== 0">

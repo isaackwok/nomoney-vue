@@ -96,35 +96,31 @@
       查無任何記錄
     </p>
     <div v-else class="flex flex-col">
-      <a
+      <InfoCard
         v-for="(result, index) in searchResults.cases"
-        v-bind:href="'/case?caseId=' + result.caseId"
         v-bind:key="index"
-        class="block relative bg-white rounded-r shadow px-3 py-2 my-1"
-      >
-        <div class="flex flex-1 mr-1 justify-between">
-          <p class="font-bold text-gray-700 mt-2 truncate pb-1">
-            {{ result.title }}
-          </p>
-          <p
-            class="text-xs text-orange-400 font-bold whitespace-no-wrap top-0 right-0 px-1 mt-1"
-          >
-            $ {{ result.pay }}
-          </p>
-        </div>
-        <p class="text-sm text-gray-600 truncate">{{ result.text }}</p>
-        <p class="text-sm text-gray-500">{{ result.location }}</p>
-        <div class="my-1 flex">
-          <a
-            class="text-xs px-1 mr-1 border rounded-full border-blue-700 text-blue-700 cursor-pointer"
-            v-for="(tag, index) in result.hashtag.slice(0, 3)"
-            v-bind:key="index"
-            v-on:click="onHashTagClick($event, tag)"
-            >#{{ tag }}</a
-          >
-          <span v-if="result.hashtag.length > 3" class="text-xs px-1 text-blue-700">...</span>
-        </div>
-      </a>
+        v-bind:cardData="{
+          href: `/case?caseId=${result.caseId}`,
+          title: result.title,
+          text: result.text,
+          pay: result.pay,
+          details: {
+            地區: { text: result.location },
+          },
+          textStyle: {
+            truncate: true,
+            textsm: true,
+          },
+          titleStyle: {
+            bold: true,
+            large: false,
+            color: 'gray',
+            truncate: true
+          },
+          hashtagTruncate: true,
+          hashtag: result.hashtag,
+        }"
+      />
     </div>
   </div>
 </template>
@@ -255,18 +251,15 @@ export default {
         queryConditions.minpay = parseInt(this.conditions.minpay);
       if (this.conditions.maxpay)
         queryConditions.maxpay = parseInt(this.conditions.maxpay);
-      this.searchResults = await fetch(
-        "/api/search_case",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            userIdToken: this.userProfile.userId,
-            keyword: this.keyword,
-            offset: 0,
-            conditions: queryConditions,
-          }),
-        }
-      )
+      this.searchResults = await fetch("/api/search_case", {
+        method: "POST",
+        body: JSON.stringify({
+          userIdToken: this.userProfile.userId,
+          keyword: this.keyword,
+          offset: 0,
+          conditions: queryConditions,
+        }),
+      })
         .then((res) => res.json())
         .then((json) => {
           if (json.noData) return [];
@@ -281,17 +274,14 @@ export default {
     async userProfile(newValue, oldValue) {
       if (this.firstEntry && newValue && newValue !== oldValue) {
         if (this.$route.query && this.$route.query.keyword) {
-          this.searchResults = await fetch(
-            "/api/search_case",
-            {
-              body: JSON.stringify({
-                userIdToken: newValue.userId,
-                keyword: this.$route.query.keyword,
-                offset: 0,
-              }),
-              method: "POST",
-            }
-          )
+          this.searchResults = await fetch("/api/search_case", {
+            body: JSON.stringify({
+              userIdToken: newValue.userId,
+              keyword: this.$route.query.keyword,
+              offset: 0,
+            }),
+            method: "POST",
+          })
             .then((res) => res.json())
             .then((json) => {
               if (json.noData) return [];
@@ -299,17 +289,14 @@ export default {
               return json;
             });
         } else {
-          this.searchResults = await fetch(
-            "/api/search_case",
-            {
-              body: JSON.stringify({
-                userIdToken: newValue.userId,
-                keyword: "",
-                offset: 0,
-              }),
-              method: "POST",
-            }
-          )
+          this.searchResults = await fetch("/api/search_case", {
+            body: JSON.stringify({
+              userIdToken: newValue.userId,
+              keyword: "",
+              offset: 0,
+            }),
+            method: "POST",
+          })
             .then((res) => res.json())
             .then((json) => {
               if (json.noData) return [];
