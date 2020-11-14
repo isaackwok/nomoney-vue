@@ -92,7 +92,7 @@
         class="absolute right-0 bottom-0 mb-1 mr-1 text-lg text-green-500 px-2 py-2 right-0 fas fa-sliders-h cursor-pointer"
       ></i>
     </p>
-    <NoRecord  v-if="searchResults.length === 0" />
+    <NoRecord v-if="searchResults.length === 0" />
     <div v-else class="flex flex-col">
       <InfoCard
         v-for="(result, index) in searchResults.cases"
@@ -113,7 +113,7 @@
             bold: true,
             large: false,
             color: 'gray',
-            truncate: true
+            truncate: true,
           },
           hashtagTruncate: true,
           hashtag: result.hashtag,
@@ -272,6 +272,7 @@ export default {
     async userProfile(newValue, oldValue) {
       if (this.firstEntry && newValue && newValue !== oldValue) {
         if (this.$route.query && this.$route.query.keyword) {
+          this.keyword = this.$route.query.keyword;
           this.searchResults = await fetch("/api/search_case", {
             body: JSON.stringify({
               userIdToken: newValue.userId,
@@ -283,7 +284,6 @@ export default {
             .then((res) => res.json())
             .then((json) => {
               if (json.noData) return [];
-              this.keyword = this.$route.query.keyword;
               return json;
             });
         } else {
