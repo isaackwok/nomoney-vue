@@ -9,7 +9,7 @@
         required
         id="title"
         class="px-2 py-1 text-gray-700 bg-transparent text-sm focus:bg-white border-b border-green-500"
-        placeholder="[徵] 清大女宿發現大蟑螂，求英雄救美！"
+        placeholder="[徵] 女宿發現大蟑螂，求英雄救美！"
         type="text"
         maxlength="30"
         v-model="formData.title"

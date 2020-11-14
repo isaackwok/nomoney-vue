@@ -35,19 +35,32 @@
           <tr>
             <td class="pr-2 text-right">LINE:</td>
             <td class="text-left">
-              <a v-bind:href="'https://line.me/R/ti/p/~' + userProfile.lineId"
-                >{{ userProfile.lineId }}
-                <i class="fas fa-user-plus text-green-400"></i
-              ></a>
+              <a
+                v-bind:href="
+                  userProfile.lineId !== ''
+                    ? `https://line.me/R/ti/p/~${userProfile.lineId}`
+                    : undefined
+                "
+                v-bind:class="{
+                  'text-blue-700 underline': userProfile.lineId !== '',
+                }"
+                >{{ userProfile.lineId }}</a
+              >
             </td>
           </tr>
           <tr>
             <td class="pr-2 text-right">手機:</td>
             <td class="text-left">
               <a
-                class="text-blue-700 underline"
-                v-bind:href="'tel:' + userProfile.phone"
-                >{{ userProfile.phone }}</a
+                v-bind:class="{
+                  'text-blue-700 underline': userProfile.phone !== '',
+                }"
+                v-bind:href="
+                  userProfile.phone !== ''
+                    ? 'tel:' + userProfile.phone
+                    : undefined
+                "
+                >{{ userProfile.phone === "" ? "--" : userProfile.phone }}</a
               >
             </td>
           </tr>

@@ -92,9 +92,7 @@
         class="absolute right-0 bottom-0 mb-1 mr-1 text-lg text-green-500 px-2 py-2 right-0 fas fa-sliders-h cursor-pointer"
       ></i>
     </p>
-    <p v-if="searchResults.length === 0" class="text-gray-500 text-center pt-3">
-      查無任何記錄
-    </p>
+    <NoRecord  v-if="searchResults.length === 0" />
     <div v-else class="flex flex-col">
       <InfoCard
         v-for="(result, index) in searchResults.cases"

@@ -1,8 +1,6 @@
 <template>
   <div v-if="seekHistory">
-    <p v-if="seekHistory['count'] === 0" class="text-gray-500 text-center pt-3">
-      查無任何記錄
-    </p>
+    <NoRecord v-if="seekHistory['count'] === 0" />
     <div v-else class="flex flex-col">
       <InfoCard
         v-for="(sCase, index) in seekHistory.cases"
