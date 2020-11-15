@@ -1,6 +1,6 @@
 <template>
   <div v-if="seekHistory">
-    <NoRecord v-if="seekHistory['count'] === 0" height="short"/>
+    <NoRecord v-if="seekHistory['count'] === 0" height="short" />
     <div v-else class="flex flex-col">
       <InfoCard
         v-for="(sCase, index) in seekHistory.cases"
@@ -21,12 +21,12 @@
             bold: true,
             large: false,
             color: 'gray',
-            truncate: true
+            truncate: true,
           },
           hashtagTruncate: true,
           hashtag: sCase.hashtag,
           status: sCase.status,
-          isEmployeeAccepted: sCase.employee.accepted
+          isEmployeeAccepted: sCase.employee.accepted,
         }"
       />
     </div>
@@ -44,16 +44,13 @@ export default {
   watch: {
     async userProfile(newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
-        this.seekHistory = await fetch(
-          "/api/get_history",
-          {
-            body: JSON.stringify({
-              userIdToken: newValue.userId,
-              type: "seek",
-            }),
-            method: "POST",
-          }
-        ).then((res) => res.json());
+        this.seekHistory = await fetch("/api/get_history", {
+          body: JSON.stringify({
+            userIdToken: newValue.userId,
+            type: "seek",
+          }),
+          method: "POST",
+        }).then((res) => res.json());
       }
     },
   },
@@ -61,7 +58,7 @@ export default {
     onHashTagClick(e, hashtag) {
       e.stopPropagation();
       e.preventDefault();
-      window.location.replace(`/?keyword=${encodeURIComponent("#" + hashtag)}`);
+      this.$route.push({ path: "/", query: { keyword: "#" + hashtag } });
     },
   },
 };

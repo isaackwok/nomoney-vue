@@ -139,8 +139,8 @@ export default {
       fetch("/api/crud_case", {
         method: "POST",
         body: JSON.stringify({
-          action: this.hasCaseIdAndUserProfile? "update":"create",
-          caseId: this.hasCaseIdAndUserProfile? this.$route.query.caseId: "",
+          action: this.hasCaseIdAndUserProfile ? "update" : "create",
+          caseId: this.hasCaseIdAndUserProfile ? this.$route.query.caseId : "",
           employerId: this.$store.state.userProfile.userId,
           // case data
           title: this.formData.title,
@@ -150,11 +150,15 @@ export default {
           pay: this.formData.pay,
         }),
       })
-      .then(res => res.json())
-      .then((json) => {
-        alert(`「${this.formData.title}」\n${this.hasCaseIdAndUserProfile? '修改': '新增'}成功`);
-        window.location.replace("/case?caseId=" + json.caseId);
-      });
+        .then((res) => res.json())
+        .then((json) => {
+          alert(
+            `「${this.formData.title}」\n${
+              this.hasCaseIdAndUserProfile ? "修改" : "新增"
+            }成功`
+          );
+          this.$route.push({ path: "case", query: { caseId: json.caseId } });
+        });
     },
   },
   watch: {
@@ -166,13 +170,17 @@ export default {
             caseId: this.$route.query.caseId,
             userIdToken: this.$store.state.userProfile.userId,
           }),
-        }).then((res) => res.json()).then(json => {
-          this.formData.title = json.title
-          this.formData.description = json.text;
-          [this.formData.locationCounty, this.formData.locationDistrict] = json.location.split('/');
-          this.formData.pay = json.pay;
-
-        });
+        })
+          .then((res) => res.json())
+          .then((json) => {
+            this.formData.title = json.title;
+            this.formData.description = json.text;
+            [
+              this.formData.locationCounty,
+              this.formData.locationDistrict,
+            ] = json.location.split("/");
+            this.formData.pay = json.pay;
+          });
       }
     },
   },

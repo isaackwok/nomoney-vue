@@ -89,7 +89,7 @@ export default {
   props: ["userProfile"],
   methods: {
     editProfile() {
-      window.location.replace("/editprofile");
+      this.$route.push('editprofile');
     },
   },
 };

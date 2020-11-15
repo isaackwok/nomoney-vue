@@ -22,18 +22,32 @@
                 : '先生/小姐'
             }`,
           },
-          'LINE ID': caseData.employer.lineId !== undefined
-            ? {
-                text: caseData.employer.lineId === ''? '--': caseData.employer.lineId,
-                href: caseData.employer.lineId === ''? undefined: `https://line.me/R/ti/p/~${caseData.employer.lineId}`,
-              }
-            : undefined,
-          電話: caseData.employer.phone !== undefined
-            ? {
-                text: caseData.employer.phone === ''? '--': caseData.employer.phone,
-                href: caseData.employer.phone === ''? undefined: `tel:${caseData.employer.phone}`,
-              }
-            : undefined,
+          'LINE ID':
+            caseData.employer.lineId !== undefined
+              ? {
+                  text:
+                    caseData.employer.lineId === ''
+                      ? '--'
+                      : caseData.employer.lineId,
+                  href:
+                    caseData.employer.lineId === ''
+                      ? undefined
+                      : `https://line.me/R/ti/p/~${caseData.employer.lineId}`,
+                }
+              : undefined,
+          電話:
+            caseData.employer.phone !== undefined
+              ? {
+                  text:
+                    caseData.employer.phone === ''
+                      ? '--'
+                      : caseData.employer.phone,
+                  href:
+                    caseData.employer.phone === ''
+                      ? undefined
+                      : `tel:${caseData.employer.phone}`,
+                }
+              : undefined,
           發案人評價: {
             text: caseData.employer.rating
               ? caseData.employer.rating + ' / 5'
@@ -86,7 +100,14 @@
         <i class="fas fa-trash-alt"></i> 刪除
       </button>
     </div>
-    <div v-if="caseData.status === 'O' && !caseData.isOwner && caseData.cancelBtn !== undefined" class="self-center">
+    <div
+      v-if="
+        caseData.status === 'O' &&
+        !caseData.isOwner &&
+        caseData.cancelBtn !== undefined
+      "
+      class="self-center"
+    >
       <button
         v-if="!caseData.cancelBtn"
         v-on:click="applyCase(false)"
@@ -119,22 +140,26 @@
           accepted: applicant.accepted,
           details: {
             評價: {
-              text: applicant.rating
-                ? applicant.rating + ' / 5'
-                : '--',
+              text: applicant.rating ? applicant.rating + ' / 5' : '--',
             },
             'LINE ID':
               caseData.isOwner && applicant.accepted === 'A'
                 ? {
-                    text: applicant.lineId === ''? '--': applicant.lineId,
-                    href: applicant.lineId === ''?undefined: `https://line.me/R/ti/p/~${applicant.lineId}`,
+                    text: applicant.lineId === '' ? '--' : applicant.lineId,
+                    href:
+                      applicant.lineId === ''
+                        ? undefined
+                        : `https://line.me/R/ti/p/~${applicant.lineId}`,
                   }
                 : undefined,
             電話:
               caseData.isOwner && applicant.accepted === 'A'
                 ? {
-                    text: applicant.phone === ''? '--': applicant.phone,
-                    href: applicant.phone === ''? undefined: `tel:${applicant.phone}`,
+                    text: applicant.phone === '' ? '--' : applicant.phone,
+                    href:
+                      applicant.phone === ''
+                        ? undefined
+                        : `tel:${applicant.phone}`,
                   }
                 : undefined,
           },
@@ -234,7 +259,7 @@ export default {
     onHashTagClick(e, hashtag) {
       e.stopPropagation();
       e.preventDefault();
-      window.location.replace(`/?keyword=${encodeURIComponent("#" + hashtag)}`);
+      this.$route.push({ path: "/", query: { keyword: "#" + hashtag } });
     },
     async shareCaseWithPicker(caseData) {
       const title = caseData.title;
@@ -422,7 +447,7 @@ export default {
               }),
             }).then((res) => {
               alert("刪除成功！");
-              window.location.replace("/profile");
+              this.$route.push('profile');
             });
           }
           break;
@@ -443,7 +468,7 @@ export default {
           }
           break;
         case "edit":
-          window.location.replace(`/provide?caseId=${this.caseData.caseId}`);
+          this.$route.push({path: 'provide', query:{ caseId: this.caseData.caseId }})
           break;
       }
     },

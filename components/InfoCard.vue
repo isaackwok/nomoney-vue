@@ -156,12 +156,12 @@ export default {
   },
   methods: {
     jump(href) {
-      window.location.replace(href);
+      this.$route.push(href)
     },
     onHashTagClick(e, hashtag) {
       e.stopPropagation();
       e.preventDefault();
-      window.location.replace(`/?keyword=${encodeURIComponent("#" + hashtag)}`);
+      this.$route.push({path:'/', query:{keyword: "#" + hashtag}})
     },
     changeApplicationAccepted(applicant) {
       const query = this.$route.query;
