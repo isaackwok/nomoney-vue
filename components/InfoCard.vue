@@ -171,7 +171,7 @@ export default {
           action: "update",
           caseId: applicant.caseId,
           userIdToken: this.userProfile.userId,
-          appId: applicant.appId,
+          employeeId: applicant.employeeId,
           accepted: applicant.accepted === "A" ? "T" : "A",
         }),
       })
