@@ -5,7 +5,7 @@
   >
     <a href="/editprofile"
       ><i
-        class="absolute text-gray-500 text-sm top-0 right-0 px-2 py-1 m-1 fas fa-pen"
+        class="absolute text-gray-500 text-sm top-0 right-0 p-2 m-1 fas fa-pen"
     /></a>
     <!-- Left column -->
     <div class="flex flex-col p-1 text-center">
