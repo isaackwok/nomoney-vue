@@ -186,7 +186,7 @@ export default {
         }),
       }).then((res) => {
         alert(`個人檔案修改成功`);
-        this.$route.push('profile');
+        window.location.replace('/profile')
       });
     },
   },

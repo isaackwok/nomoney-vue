@@ -58,7 +58,7 @@ export default {
     onHashTagClick(e, hashtag) {
       e.stopPropagation();
       e.preventDefault();
-      this.$route.push({ path: "/", query: { keyword: "#" + hashtag } });
+      window.location.replace(`/?keyword=${encodeURIComponent("#" + hashtag)}`);
     },
   },
 };

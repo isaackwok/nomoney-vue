@@ -157,7 +157,9 @@ export default {
               this.hasCaseIdAndUserProfile ? "修改" : "新增"
             }成功`
           );
-          this.$route.push({ path: "case", query: { caseId: json.caseId } });
+          window.location.replace(
+            `/case?caseId=${encodeURIComponent(json.caseId)}`
+          );
         });
     },
   },

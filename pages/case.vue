@@ -109,14 +109,14 @@
       class="self-center"
     >
       <button
-        v-if="!isAcceptedOrOwner && !isApplied"
+        v-if="!caseData.cancelBtn"
         v-on:click="applyCase(false)"
         class="m-3 text-white bg-green-600 rounded shadow py-1 px2 w-64"
       >
         我要應徵
       </button>
       <button
-        v-else-if="!caseData.isOwner && !isAcceptedOrOwner"
+        v-else
         v-on:click="applyCase(true)"
         class="m-3 text-white bg-yellow-600 rounded shadow py-1 px2 w-64"
       >
@@ -259,7 +259,7 @@ export default {
     onHashTagClick(e, hashtag) {
       e.stopPropagation();
       e.preventDefault();
-      this.$route.push({ path: "/", query: { keyword: "#" + hashtag } });
+      window.location.replace(`/?keyword=${encodeURIComponent("#" + hashtag)}`);
     },
     async shareCaseWithPicker(caseData) {
       const title = caseData.title;
@@ -447,7 +447,7 @@ export default {
               }),
             }).then((res) => {
               alert("刪除成功！");
-              this.$route.push('profile');
+              window.location.replace(`/profile`);
             });
           }
           break;
@@ -468,7 +468,9 @@ export default {
           }
           break;
         case "edit":
-          this.$route.push({path: 'provide', query:{ caseId: this.caseData.caseId }})
+          window.location.replace(
+            `/provide?caseId=${encodeURIComponent(this.caseData.caseId)}`
+          );
           break;
       }
     },

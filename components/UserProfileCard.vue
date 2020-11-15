@@ -3,7 +3,7 @@
     v-if="userProfile"
     class="relative flex items-center rounded shadow bg-white px-3"
   >
-    <a v-on:click="editProfile"
+    <a href="/editprofile"
       ><i
         class="absolute text-gray-500 text-sm top-0 right-0 px-2 py-1 m-1 fas fa-pen"
     /></a>
@@ -88,9 +88,6 @@
 export default {
   props: ["userProfile"],
   methods: {
-    editProfile() {
-      this.$route.push('editprofile');
-    },
   },
 };
 </script>
