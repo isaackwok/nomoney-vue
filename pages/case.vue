@@ -119,8 +119,8 @@
           accepted: applicant.accepted,
           details: {
             評價: {
-              text: applicant.employeeRating
-                ? applicant.employeeRating + ' / 5'
+              text: applicant.rating
+                ? applicant.rating + ' / 5'
                 : '--',
             },
             'LINE ID':
