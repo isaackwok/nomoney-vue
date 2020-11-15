@@ -109,14 +109,14 @@
       class="self-center"
     >
       <button
-        v-if="!caseData.cancelBtn"
+        v-if="!isAcceptedOrOwner && !isApplied"
         v-on:click="applyCase(false)"
         class="m-3 text-white bg-green-600 rounded shadow py-1 px2 w-64"
       >
         我要應徵
       </button>
       <button
-        v-else
+        v-else-if="!caseData.isOwner && !isAcceptedOrOwner"
         v-on:click="applyCase(true)"
         class="m-3 text-white bg-yellow-600 rounded shadow py-1 px2 w-64"
       >
