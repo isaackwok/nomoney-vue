@@ -165,7 +165,7 @@ export default {
     },
     changeApplicationAccepted(applicant) {
       const query = this.$route.query;
-      fetch("/api/crud_app", {
+      fetch(process.env.baseUrl + "/api/crud_app", {
         method: "POST",
         body: JSON.stringify({
           action: "update",

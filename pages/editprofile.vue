@@ -170,7 +170,7 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault();
-      fetch("/api/crud_profile", {
+      fetch(process.env.baseUrl + "/api/crud_profile", {
         method: "POST",
         body: JSON.stringify({
           action: "update",
@@ -193,7 +193,7 @@ export default {
   watch: {
     userProfile(newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
-        fetch("/api/crud_profile", {
+        fetch(process.env.baseUrl + "/api/crud_profile", {
           body: JSON.stringify({
             userIdToken: newValue.userId,
             action: "read",

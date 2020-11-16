@@ -48,7 +48,33 @@ export default {
       })
       .then(async () => {
         // handle login
-        if (liff.isLoggedIn()) {
+        if (process.env.dev) {
+            this.$store.commit(
+              "setUserProfile",
+              await fetch(process.env.baseUrl + "/api/crud_profile", {
+                method: "POST",
+                body: JSON.stringify({
+                  action: "create",
+                  userIdToken: 'U04d1a0375336023979bce781d7da76b3',
+                }),
+              }).then((res) => res.json())
+            );
+          // this.$store.commit("setUserProfile", {
+          //   noData: false,
+          //   userId: "U04d1a0375336023979bce781d7da76b3",
+          //   displayName: "Isaac Kwok",
+          //   image:
+          //     "https://profile.line-scdn.net/0h2jM2kFEJbUVwS0Qla_0SEkwOYygHZWsNCHggIQYeMyFeLi1DSn8rdFJCNCUIeipGG311JFVIY30P",
+          //   intro:
+          //     "\u6211\u559c\u6b61\u5beb\u7a0b\u5f0f\r\n\u7b2c\u4e00\u6b21\u53c3\u52a0\u9ed1\u5ba2\u677e\r\n\u5e0c\u671b\u80fd\u5e6b\u52a9\u5230\u5f88\u591a\u4eba",
+          //   gender: "M",
+          //   birthday: "1997-06-25",
+          //   phone: "0987654321",
+          //   county: "\u65b0\u7af9\u5e02/\u5317\u5340",
+          //   rating: 5.0,
+          //   lineId: "isaackwok0625",
+          // });
+        } else if (liff.isLoggedIn()) {
           this.$store.commit("setUserIdToken", await liff.getProfile());
           if (!this.$store.state.userProfile) {
             this.$store.commit(

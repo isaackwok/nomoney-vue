@@ -136,7 +136,7 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault();
-      fetch("/api/crud_case", {
+      fetch(process.env.baseUrl + "/api/crud_case", {
         method: "POST",
         body: JSON.stringify({
           action: this.hasCaseIdAndUserProfile ? "update" : "create",
@@ -166,7 +166,7 @@ export default {
   watch: {
     hasCaseIdAndUserProfile(newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
-        fetch("/api/get_case", {
+        fetch(process.env.baseUrl + "/api/get_case", {
           method: "POST",
           body: JSON.stringify({
             caseId: this.$route.query.caseId,

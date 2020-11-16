@@ -245,7 +245,7 @@ export default {
     async userProfile(newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
         const query = this.$route.query;
-        this.caseData = await fetch("/api/get_case", {
+        this.caseData = await fetch(process.env.baseUrl + "/api/get_case", {
           method: "POST",
           body: JSON.stringify({
             caseId: query.caseId,
@@ -417,7 +417,7 @@ export default {
     },
     changeApplicationAccepted(applicant) {
       const query = this.$route.query;
-      fetch("/api/crud_app", {
+      fetch(process.env.baseUrl + "/api/crud_app", {
         method: "POST",
         body: JSON.stringify({
           action: "update",
@@ -438,7 +438,7 @@ export default {
         case "delete":
           const confirmDelete = confirm("確定要刪除案件嗎？");
           if (confirmDelete) {
-            fetch("/api/crud_case", {
+            fetch(process.env.baseUrl + "/api/crud_case", {
               method: "POST",
               body: JSON.stringify({
                 action: "delete",
@@ -454,7 +454,7 @@ export default {
         case "finish":
           const confirmClose = confirm("確定要結束案件嗎？");
           if (confirmClose) {
-            fetch("/api/crud_case", {
+            fetch(process.env.baseUrl + "/api/crud_case", {
               method: "POST",
               body: JSON.stringify({
                 action: "update",
@@ -485,7 +485,7 @@ export default {
           return;
         }
       }
-      fetch("/api/crud_app", {
+      fetch(process.env.baseUrl + "/api/crud_app", {
         method: "POST",
         body: JSON.stringify({
           action: act,

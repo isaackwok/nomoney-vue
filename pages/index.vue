@@ -249,7 +249,7 @@ export default {
         queryConditions.minpay = parseInt(this.conditions.minpay);
       if (this.conditions.maxpay)
         queryConditions.maxpay = parseInt(this.conditions.maxpay);
-      this.searchResults = await fetch("/api/search_case", {
+      this.searchResults = await fetch(process.env.baseUrl + "/api/search_case", {
         method: "POST",
         body: JSON.stringify({
           userIdToken: this.userProfile.userId,
@@ -273,7 +273,7 @@ export default {
       if (this.firstEntry && newValue && newValue !== oldValue) {
         if (this.$route.query && this.$route.query.keyword) {
           this.keyword = this.$route.query.keyword;
-          this.searchResults = await fetch("/api/search_case", {
+          this.searchResults = await fetch(process.env.baseUrl + "/api/search_case", {
             body: JSON.stringify({
               userIdToken: newValue.userId,
               keyword: this.$route.query.keyword,
@@ -287,7 +287,7 @@ export default {
               return json;
             });
         } else {
-          this.searchResults = await fetch("/api/search_case", {
+          this.searchResults = await fetch(process.env.baseUrl + "/api/search_case", {
             body: JSON.stringify({
               userIdToken: newValue.userId,
               keyword: "",

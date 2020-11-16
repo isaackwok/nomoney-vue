@@ -44,7 +44,7 @@ export default {
   watch: {
     async userProfile(newValue, oldValue) {
       if (newValue && newValue !== oldValue) {
-        this.seekHistory = await fetch("/api/get_history", {
+        this.seekHistory = await fetch(process.env.baseUrl + "/api/get_history", {
           body: JSON.stringify({
             userIdToken: newValue.userId,
             type: "seek",
