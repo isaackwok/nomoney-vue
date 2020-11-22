@@ -5,14 +5,14 @@
         <i class="text-lg fas fa-plus"></i>
       </a>
       <a
-        class="text-white py-1 px-3 mr-1 text-sm shadow rounded-full border border-white"
+        class="text-white py-1 px-3 mr-1 text-sm shadow rounded-full border border-white md:hover:bg-white md:hover:text-green-500"
         href="/"
       >
         <i class="fas fa-search-dollar"></i> 外快
       </a>
       <a
         href="/profile"
-        class="text-white py-1 px-3 text-sm shadow rounded-full border border-white"
+        class="text-white py-1 px-3 text-sm shadow rounded-full border border-white md:hover:bg-white md:hover:text-green-500"
       >
         <i class="fas fa-user"></i> {{ userProfile? userProfile.displayName: '個人檔案' }}
       </a>
