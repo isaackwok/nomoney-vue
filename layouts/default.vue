@@ -55,7 +55,7 @@ export default {
                 method: "POST",
                 body: JSON.stringify({
                   action: "create",
-                  userIdToken: 'U04d1a0375336023979bce781d7da76b3',
+                  userIdToken: process.env.myUserIdToken,
                 }),
               }).then((res) => res.json())
             );
