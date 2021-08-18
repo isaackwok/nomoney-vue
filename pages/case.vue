@@ -415,24 +415,24 @@ export default {
         }
       } else console.log("Please login...");
     },
-    changeApplicationAccepted(applicant) {
-      const query = this.$route.query;
-      fetch(process.env.baseUrl + "/api/crud_app", {
-        method: "POST",
-        body: JSON.stringify({
-          action: "update",
-          caseId: applicant.caseId,
-          userIdToken: this.userProfile.userId,
-          employeeId: applicant.employeeId,
-          accepted: applicant.accepted === "A" ? "T" : "A",
-        }),
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          alert("應徵者資訊已更新！");
-          this.caseData = json;
-        });
-    },
+    // changeApplicationAccepted(applicant) {
+    //   const query = this.$route.query;
+    //   fetch(process.env.baseUrl + "/api/crud_app", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       action: "update",
+    //       caseId: applicant.caseId,
+    //       userIdToken: this.userProfile.userId,
+    //       employeeId: applicant.employeeId,
+    //       accepted: applicant.accepted === "A" ? "T" : "A",
+    //     }),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((json) => {
+    //       alert("應徵者資訊已更新！");
+    //       this.caseData = json;
+    //     });
+    // },
     caseAction(action) {
       switch (action) {
         case "delete":
@@ -489,8 +489,10 @@ export default {
         method: "POST",
         body: JSON.stringify({
           action: act,
+          appId: act === "delete"? this.caseData.applications[0].appId: null,
           caseId: this.caseData.caseId,
           employeeId: this.userProfile.userId,
+          userIdToken: this.userProfile.userId,
           message: message ? message : "",
         }),
       })

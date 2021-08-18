@@ -170,6 +170,7 @@ export default {
         body: JSON.stringify({
           action: "update",
           caseId: applicant.caseId,
+          appId: applicant.appId,
           userIdToken: this.userProfile.userId,
           employeeId: applicant.employeeId,
           accepted: applicant.accepted === "A" ? "T" : "A",
