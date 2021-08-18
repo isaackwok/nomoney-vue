@@ -11,6 +11,12 @@
         <i class="fas fa-search-dollar"></i> 外快
       </a>
       <a
+        class="text-white py-1 px-3 mr-1 text-sm shadow rounded-full border border-white md:hover:bg-white md:hover:text-green-500"
+        href="/qrcode"
+      >
+        <i class="fas fa-qrcode"></i> 加入LINE
+      </a>
+      <a
         href="/profile"
         class="text-white py-1 px-3 text-sm shadow rounded-full border border-white md:hover:bg-white md:hover:text-green-500"
       >
